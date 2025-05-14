@@ -1,4 +1,7 @@
 
+let humanScore = 0;
+let computerScore = 0;
+
 function getComputerChoice() {
     let number = Math.ceil(Math.random() * 3)
     let choice = ""
@@ -18,5 +21,10 @@ function getComputerChoice() {
             break;
     }
 
-    return choice
+    return choice;
+}
+
+function getHumanChoice() {
+    let userChoice = prompt("Please enter a choice between Rock, Paper and Scissors");
+    return userChoice;
 }
