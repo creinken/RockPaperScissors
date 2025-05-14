@@ -30,76 +30,37 @@ function getHumanChoice() {
 }
 
 function playRound(humanChoice, computerChoice) {
-    let result = ""
-    switch (humanChoice.toLowerCase()) {
-        case "rock":
-            switch (computerChoice) {
-                case "Rock":
-                    result = "tie";
-                    break;
-                case "Paper":
-                    result = "lose";
-                    break;
-        
-                case "Scissors":
-                    result = "win";
-                    break;
+    let result = "";
+    
+    if ((humanChoice.toLowerCase() === "rock" && computerChoice === "Rock") || (humanChoice.toLowerCase() === "paper" && computerChoice === "Paper") || (humanChoice.toLowerCase() === "scissors" && computerChoice === "Scissors")) {
+        result = "tie";
+    } else if ((humanChoice.toLowerCase() === "rock" && computerChoice === "Paper") || (humanChoice.toLowerCase() === "paper" && computerChoice === "Scissors") || (humanChoice.toLowerCase() === "scissors" && computerChoice === "Rock")){
+        result = "lose";
+    } else if ((humanChoice.toLowerCase() === "rock" && computerChoice === "Scissors") || (humanChoice.toLowerCase() === "paper" && computerChoice === "Rock") || (humanChoice.toLowerCase() === "scissors" && computerChoice === "Paper")) {
+        result = "win";
+    }
 
-                default:
-                    break;
-            }
-            break;
-        
-        case "paper":
-            switch (computerChoice) {
-                case "Rock":
-                    result = "win";
-                    break;
-                case "Paper":
-                    result = "tie";
-                    break;
-        
-                case "Scissors":
-                    result = "lose";
-                    break;
-
-                default:
-                    break;
-            }
-            break;
-        
-        case "scissors":
-            switch (computerChoice) {
-                case "Rock":
-                    result = "lose";
-                    break;
-                case "Paper":
-                    result = "win";
-                    break;
-        
-                case "Scissors":
-                    result = "tie";
-                    break;
-
-                default:
-                    break;
-            }
-            break;
-        
-        default:
-            break;
-    } // end of humanChoice switch
-
-    if (result = "win") {
+    if (result == "win") {
         humanScore += 1;
-    } else if (result = "lose") {
+    } else if (result == "lose") {
         computerScore += 1;
     }
 
     console.log("You " + result + ".");
 }
 
-let humanSelection = getHumanChoice();
-let computerSelection = getComputerChoice();
+function playGame() {
 
-playRound(humanSelection, computerSelection);
+    for (let i = 0; i < 5; i++) {
+        let humanSelection = getHumanChoice();
+        let computerSelection = getComputerChoice();
+
+        console.log(humanSelection + " VS " + computerSelection);
+
+        playRound(humanSelection, computerSelection);
+        console.log("player score: " + humanScore + "   computer score: " + computerScore);
+    }
+    
+}
+
+playGame();
