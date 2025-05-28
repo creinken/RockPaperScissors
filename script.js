@@ -1,7 +1,3 @@
-
-let humanScore = 0;
-let computerScore = 0;
-
 function getComputerChoice() {
     let number = Math.ceil(Math.random() * 3)
     let choice = ""
@@ -24,11 +20,6 @@ function getComputerChoice() {
     return choice;
 }
 
-function getHumanChoice() {
-    let userChoice = prompt("Please enter a choice between Rock, Paper and Scissors");
-    return userChoice;
-}
-
 function playRound(humanChoice, computerChoice) {
     let result = "";
     
@@ -39,28 +30,40 @@ function playRound(humanChoice, computerChoice) {
     } else if ((humanChoice.toLowerCase() === "rock" && computerChoice === "Scissors") || (humanChoice.toLowerCase() === "paper" && computerChoice === "Rock") || (humanChoice.toLowerCase() === "scissors" && computerChoice === "Paper")) {
         result = "win";
     }
-
-    if (result == "win") {
-        humanScore += 1;
-    } else if (result == "lose") {
-        computerScore += 1;
-    }
-
-    console.log("You " + result + ".");
+    return result;
 }
 
 function playGame() {
-
-    for (let i = 0; i < 5; i++) {
-        let humanSelection = getHumanChoice();
-        let computerSelection = getComputerChoice();
-
-        console.log(humanSelection + " VS " + computerSelection);
-
-        playRound(humanSelection, computerSelection);
-        console.log("player score: " + humanScore + "   computer score: " + computerScore);
-    }
+    let humanScore = 0;
+    let computerScore = 0;
     
+    window.addEventListener('DOMContentLoaded', () => {
+        let buttons = document.querySelectorAll("button");
+        let humanScoreDisplay = document.querySelector("#humanScore");
+        let computerScoreDisplay = document.querySelector("#computerScore");
+        let resultsDisplay = document.querySelector("#results");
+
+        buttons.forEach((button) => {
+            button.onclick = (e) => {
+                let computerChoice = getComputerChoice();
+                let roundResult = playRound(e.target.innerText, computerChoice);
+
+                resultsDisplay.innerText = e.target.innerText + " VS " + computerChoice;
+
+                if (roundResult == "win") {
+                    humanScore += 1;
+                    humanScoreDisplay.innerText = "Player: " + humanScore;
+                } else if (roundResult == "lose") {
+                    computerScore += 1;
+                    computerScoreDisplay.innerText = "Computer: " + computerScore;
+                }
+
+                if (humanScore == 5 || computerScore == 5) {
+                    alert("GAME OVER!");
+                }
+            }
+        });
+    });   
 }
 
 playGame();
